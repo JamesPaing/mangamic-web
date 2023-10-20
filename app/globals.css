@@ -1,27 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.user-menu:hover .user-submenu {
+    visibility: visible;
+    opacity: 1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.user-submenu {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.okay-narsa {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
+
+.wtf {
+    text-shadow: 2px 2px 4px #000000;
+}
+
+select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    /* background-color: #fafafa;
+    height: 45px;
+    width: 100%; */
+    background-size: 24px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 2px) center;
+    background-image: url("/images/icons/arrow-down.svg");
+    /* background-position: 100%;
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 0; */
+}
+
+
+@layer base {
+    html {
+      font-family: 'Quicksand', 'Arial', 'Courier New', Courier, monospace, system-ui, sans-serif;
+    }
+}
+
