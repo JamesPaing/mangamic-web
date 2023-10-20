@@ -45,7 +45,7 @@ const Home = async () => {
                         </div>
                         <div className="flex justify-between items-center">
                             <p className="uppercase text-sm tracking-wider mr-2">
-                                View Allx
+                                View All
                             </p>
                             <BsArrowRight />
                         </div>
