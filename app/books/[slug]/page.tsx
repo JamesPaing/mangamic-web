@@ -14,16 +14,17 @@ import { Book } from '@/components/home/BookCard';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { ADD_TO_BOOKMARK } from '@/apollo/query/user-query';
+import { ADD_TO_BOOKMARK, GET_USER } from '@/apollo/query/user-query';
 import AddToBookmark from '@/components/book/AddToBookmark';
 import RemoveFromBookmark from '@/components/book/RemoveFromBookmark';
+import { getUri } from '@/utils/getApiUrl';
 
 interface ComProps {
     params: { slug: string };
 }
 
 const getBook = async (slug: string, userId: string) => {
-    const resp = await fetch('http://localhost:4000/graphql', {
+    const resp = await fetch(getUri(), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,14 +40,39 @@ const getBook = async (slug: string, userId: string) => {
     return data.getBookBySlug;
 };
 
+const getUser = async (_id: string) => {
+    const resp = await fetch(getUri(), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: GET_USER(_id) }),
+        next: {
+            tags: ['get-user'],
+        },
+    });
+
+    const { data } = await resp.json();
+
+    return data.getUser;
+};
+
 const page: NextPage<ComProps> = async ({ params }) => {
     const session = await getServerSession(authOptions);
     // @ts-ignore
     const book = await getBook(params.slug, session?.user._id);
 
+    // @ts-ignore
+    const user = await getUser(session?.user?._id);
+
+    // visited chapter id strings
+    const visitedChapters = user?.visitedChapters.map((vc: any) =>
+        vc._id.toString()
+    );
+
     return (
         <div className=" mt-8 text-[15px] mb-10">
-            <div className="flex items-center">
+            <div className="flex text-sm items-center">
                 <div className="flex items-center mr-1 text-white">
                     <AiFillHome className="mr-1 text-primary" />
                     <span className="mr-1">Home</span>
@@ -60,10 +86,10 @@ const page: NextPage<ComProps> = async ({ params }) => {
                     <span className="mr-1">{book?.title}</span>
                 </div>
             </div>
-            <div className="flex mt-14">
-                <div className="basis-1/4">
+            <div className="flex md:flex-row flex-col mt-14">
+                <div className="md:basis-1/4 basis-full">
                     <Image
-                        alt={book!.mainImage}
+                        alt={book?.mainImage}
                         width={0}
                         height={0}
                         sizes="100vw"
@@ -73,34 +99,36 @@ const page: NextPage<ComProps> = async ({ params }) => {
                             borderRadius: '4px',
                             objectFit: 'cover',
                         }} // optional
-                        src={book!.mainImage}
+                        src={book?.mainImage}
                     />
                 </div>
-                <div className="basis-3/4 text-white ml-7 flex flex-col justify-between">
+                <div className="md:basis-3/4 basis-full mt-4 md:mt-0 text-white md:ml-7 flex flex-col justify-between">
                     <div>
-                        <div className="flex justify-between items-center">
-                            <h2 className="text-[1.5rem] font-bold">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+                            <h2 className="text-[1.5rem] md:mb-0 mb-2 font-bold">
                                 {book?.title}
                             </h2>
-                            {book.bookmarkedUsers.find(
-                                // @ts-ignore
-                                (bu) => bu._id === session?.user._id
-                            ) ? (
-                                <RemoveFromBookmark bookId={book._id} />
-                            ) : (
-                                <AddToBookmark bookId={book._id} />
-                            )}
+                            {user ? (
+                                book?.bookmarkedUsers.find(
+                                    // @ts-ignore
+                                    (bu) => bu._id === session?.user._id
+                                ) ? (
+                                    <RemoveFromBookmark bookId={book._id} />
+                                ) : (
+                                    <AddToBookmark bookId={book?._id} />
+                                )
+                            ) : null}
                         </div>
                         <p className="text-gray-400 text-[18px] mt-4">
-                            {book!.summary}
+                            {book?.summary}
                         </p>
-                        <ul className="mt-4 text-[15px]">
+                        <ul className="mt-4 text-[15px] md:mb-0 mb-4">
                             <li className="flex items-center leading-[40px]">
                                 <div className="mr-[18px] w-[115px] text-gray-400">
                                     Genre(s):
                                 </div>
                                 <div>
-                                    {book.genres
+                                    {book?.genres
                                         ?.map((g: any) => g.name)
                                         .join(',')}
                                 </div>
@@ -109,24 +137,24 @@ const page: NextPage<ComProps> = async ({ params }) => {
                                 <div className="mr-[18px] w-[115px] text-gray-400">
                                     Views:
                                 </div>
-                                <div>{book.readCount}</div>
+                                <div>{book?.readCount}</div>
                             </li>
                         </ul>
                     </div>
-                    <div className="flex items-center">
-                        <div className="px-6 py-3 rounded-sm bg-primary flex items-center mr-4">
+                    <div className="flex flex-col md:flex-row md:items-center">
+                        <div className="px-6 py-3 rounded-sm bg-primary flex justify-center md:justify-start items-center md:mr-4 md:mb-0 mb-4">
                             <AiFillCaretLeft className="mr-2" />
                             <span>Read First</span>
                         </div>
-                        <div className="px-6 py-3 rounded-sm bg-primary flex items-center">
+                        <div className="px-6 py-3 rounded-sm bg-primary md:justify-start justify-center flex items-center">
                             <span className="mr-2">Read Last</span>
                             <AiFillCaretRight />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="flex text-white items-start mt-20 mb-28">
-                <div className="basis-2/3 mr-4 ">
+            <div className="flex flex-col md:flex-row text-white md:items-start mt-20 mb-28">
+                <div className="basis-full md:basis-2/3 md:mr-4 md:mb-0 mb-8">
                     <div className="flex justify-between items-center">
                         <div className="border-l-4 pl-4 border-l-primary">
                             <h5 className="font-semibold uppercase text-lg">
@@ -134,35 +162,35 @@ const page: NextPage<ComProps> = async ({ params }) => {
                             </h5>
                         </div>
                     </div>
-                    <div className="grid grid-cols-6 gap-6 mt-6">
-                        {book.chapters.map((c: any) => (
+                    <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-6 md:gap-x-6 md:gap-y-6 mt-6">
+                        {book?.chapters.map((c: any) => (
                             <Link
                                 key={c.slug}
                                 href={`/books/${book.slug}/${c.slug}`}
                             >
-                                <div className="p-2 relative hover:bg-white cursor-pointer transition-colors duration-200 hover:text-premium-black bg-secondary-light flex items-center justify-center rounded-sm">
+                                <div
+                                    className={`p-2 relative hover:bg-white cursor-pointer transition-colors duration-200 hover:text-premium-black ${
+                                        visitedChapters?.includes(c._id)
+                                            ? 'bg-gray-400'
+                                            : 'bg-secondary-light'
+                                    } flex items-center justify-center rounded-sm`}
+                                >
                                     <div>{c.name}</div>
-                                    <div className="absolute text-xs rounded-sm -right-4 flex justify-center items-end px-1 py-[2px] -top-3 bg-green-600">
-                                        Free
+                                    <div
+                                        className={`absolute capitalize text-xs rounded-sm -right-4 flex justify-center items-end px-1 py-[2px] -top-3 ${
+                                            c.type == 'free'
+                                                ? 'bg-green-600'
+                                                : 'bg-amber-600'
+                                        }`}
+                                    >
+                                        {c.type}
                                     </div>
                                 </div>
                             </Link>
                         ))}
                     </div>
-                    <div className="grid grid-cols-6 gap-6 mt-6">
-                        {book.chapters.map((c: any) => (
-                            <Link
-                                key={c.slug}
-                                href={`/books/${book.slug}/${c.slug}`}
-                            >
-                                <div className="p-2 hover:bg-white cursor-pointer transition-colors duration-200 hover:text-premium-black bg-green-600 flex items-center justify-center rounded-sm">
-                                    <div>{c.name}</div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
                 </div>
-                <div className="basis-1/3 ml-4 flex flex-col justify-start">
+                <div className="basis-full md:basis-1/3 md:ml-4 flex flex-col justify-start">
                     <div className="flex justify-between items-center">
                         <div className="border-l-4 pl-4 border-l-primary">
                             <h4 className="font-semibold uppercase text-lg">

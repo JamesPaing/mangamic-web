@@ -24,18 +24,22 @@ const BookCard3: React.FC<ComProps> = ({ book }) => {
                 src={book.mainImage}
             />
             <div className="px-3">
-                <div className="flex items-center">
-                    <div className="bg-secondary-light mr-2 text-[0.65rem] py-1 px-2 rounded-full">
-                        Action
-                    </div>
-                    <div className="bg-secondary-light text-[0.65rem] py-1 px-2 rounded-full">
-                        Action
-                    </div>
+                <div className="flex items-center flex-wrap">
+                    {book.genres.map((g) => (
+                        <div
+                            // @ts-ignore
+                            key={g.name}
+                            className="bg-secondary-light mt-1 mr-2 text-[0.65rem] py-1 px-2 rounded-full"
+                        >
+                            {/* @ts-ignore */}
+                            {g.name}
+                        </div>
+                    ))}
                 </div>
                 <h3 className="text-white mt-3 text-lg">{book.title}</h3>
                 <div className="flex justify-start mt-3 items-center text-gray-400">
                     <AiOutlineEye className="text-lg mr-1" />
-                    <span className="text-xs">9141 Views</span>
+                    <span className="text-xs">{book.readCount} Views</span>
                 </div>
             </div>
         </div>

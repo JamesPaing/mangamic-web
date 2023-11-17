@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsArrowRight } from '@react-icons/all-files/bs/BsArrowRight';
-import { GET_HISTORY } from '@/apollo/query/user-query';
+import { GET_BOOKMARK } from '@/apollo/query/user-query';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Image from 'next/image';
@@ -9,40 +9,40 @@ import Link from 'next/link';
 import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import { getUri } from '@/utils/getApiUrl';
 
-const getHistory = async (_id: string) => {
+const getBookmark = async (_id: string) => {
     const resp = await fetch(getUri(), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: GET_HISTORY(_id) }),
+        body: JSON.stringify({ query: GET_BOOKMARK(_id) }),
         // cache: 'no-cache',
         next: {
-            tags: ['get-history'],
+            tags: ['get-bookmark'],
         },
     });
 
     const { data } = await resp.json();
 
-    return data.getHistory;
+    return data.getBookmark;
 };
 
-const HistoryPage = async () => {
+const BookmarkPage = async () => {
     const session = await getServerSession(authOptions);
 
-    const { chapters, books } = await getHistory(
+    const { books } = await getBookmark(
         // @ts-ignore
         session?.user?._id
     );
 
     return (
         <div className=" mt-8 text-[15px] mb-32 text-white">
-            <div className="flex md:flex-row flex-col mt-16">
-                <div className="basis-full md:basis-4/5">
+            <div className="flex mt-16">
+                <div className="basis-full">
                     <div className="flex justify-between mb-5 items-center">
                         <div className="border-l-4 pl-4 border-l-primary">
-                            <h4 className="font-semibold uppercase text-lg md:text-2xl">
-                                Your History
+                            <h4 className="font-semibold uppercase text-2xl">
+                                Bookmark
                             </h4>
                         </div>
                         <div className="flex justify-between items-center">
@@ -73,52 +73,14 @@ const HistoryPage = async () => {
                                 <h3 className="text-white mt-3 text-lg">
                                     {book.title}
                                 </h3>
-                                <div className="flex items-center justify-between my-3">
-                                    <div className="text-gray-400 text-sm">
-                                        Last Read :
-                                    </div>
-                                    <div className=" text-white font-extrabold text-center">
-                                        {
-                                            chapters
-                                                .filter(
-                                                    (ch: any) =>
-                                                        ch.book._id == book._id
-                                                )
-                                                .pop()?.name
-                                        }
-                                    </div>
+                                <div className="bg-primary text-center hover:bg-gray-400 transition-colors duration-200 ease-linear mt-2 py-2 px-4 rounded-sm">
+                                    Read
                                 </div>
-
-                                <div className="bg-premium-black text-center hover:bg-primary transition-colors duration-200 ease-linear mt-2 py-2 px-4 rounded-sm">
-                                    Continue
+                                <div className="bg-premium-black mt-3 text-center hover:bg-black transition-colors duration-200 ease-linear py-2 px-4 rounded-sm">
+                                    Remove
                                 </div>
                             </Link>
                         ))}
-                    </div>
-                </div>
-                <div className="md:ml-4 basis-full md:basis-1/5 md:mt-0 mt-8">
-                    <div className="border-l-4 pl-4 border-l-primary">
-                        <h4 className="font-semibold uppercase text-lg mb-5">
-                            Recent Chapters
-                        </h4>
-                    </div>
-                    <div>
-                        {chapters
-                            .reverse()
-                            .slice(0, 10)
-                            .map((chapter: any) => (
-                                <div
-                                    key={chapter._id}
-                                    className=" bg-premium-black p-2 rounded-sm shadow-sm mb-4"
-                                >
-                                    <div className="font-extrabold">
-                                        {chapter.name}
-                                    </div>
-                                    <div className="font-thin text-gray-400 text-sm tracking-wider">
-                                        {chapter.book.title}
-                                    </div>
-                                </div>
-                            ))}
                     </div>
                 </div>
             </div>
@@ -126,4 +88,4 @@ const HistoryPage = async () => {
     );
 };
 
-export default HistoryPage;
+export default BookmarkPage;

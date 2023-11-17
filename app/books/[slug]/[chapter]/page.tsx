@@ -13,6 +13,7 @@ import ChapterSelector from '@/components/chapter/ChapterSelector';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getUri } from '@/utils/getApiUrl';
 
 interface ComProps {
     params: {
@@ -26,23 +27,31 @@ const getChapter = async (
     chapterSlug: string,
     userId: string
 ) => {
-    const resp = await fetch('http://localhost:4000/graphql', {
+    const resp = await fetch(getUri(), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            query: GET_CHAPTER_BY_SLUG(bookSlug, chapterSlug, userId),
+            query: GET_CHAPTER_BY_SLUG(
+                bookSlug,
+                chapterSlug,
+                userId ?? undefined
+            ),
         }),
     });
 
-    const { data } = await resp.json();
+    const { data, errors } = await resp.json();
 
-    return data.getChapterBySlug;
+    if (data.getChapterBySlug) {
+        return data.getChapterBySlug;
+    }
+
+    throw new Error(errors[0].message);
 };
 
 const getAllChapters = async (_id: string) => {
-    const resp = await fetch('http://localhost:4000/graphql', {
+    const resp = await fetch(getUri(), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +80,7 @@ const page: NextPage<ComProps> = async ({ params }) => {
 
     return (
         <div className="mt-8 text-[15px] mb-10">
-            <div className="flex items-center">
+            <div className="flex items-center flex-wrap">
                 <div className="flex items-center mr-1 text-white">
                     <AiFillHome className="mr-1 text-primary" />
                     <span className="mr-1">Home</span>
@@ -89,13 +98,13 @@ const page: NextPage<ComProps> = async ({ params }) => {
                     <span className="mr-1">{chapter.name}</span>
                 </div>
             </div>
-            <div className="flex mt-14 items-center justify-between flex-row ">
+            <div className="flex mt-14 md:flex-row flex-col md:items-center justify-between">
                 <ChapterSelector
                     bookSlug={params.slug}
                     chapter={chapter}
                     chapters={chapters}
                 />
-                <div className="flex items-center text-white">
+                <div className="flex items-center md:mt-0 mt-4 text-white">
                     {chapter.slug.split('-')[1] === '1' ? null : (
                         <Link
                             href={`/books/${params.slug}/chapter-${
@@ -123,7 +132,7 @@ const page: NextPage<ComProps> = async ({ params }) => {
                     )}
                 </div>
             </div>
-            <div className="mt-20 px-16 mb-32">
+            <div className="mt-20 md:px-16 mb-32">
                 {chapter.images.length > 0
                     ? chapter.images.map((image: string) => (
                           <Image

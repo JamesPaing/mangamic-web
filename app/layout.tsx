@@ -6,6 +6,7 @@ import Footer from '@/components/layouts/Footer';
 import Provider from '@/app/context/client-provider';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { ApolloWrapper } from '@/apollo/ApolloWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,13 +24,18 @@ export default async function RootLayout({
 
     return (
         <html lang="en">
-            <body className="bg-secondary">
-                <Provider session={session}>
+            <Provider session={session}>
+                <body
+                    style={{ height: '100vh' }}
+                    className="bg-secondary flex flex-col justify-between"
+                >
                     <Navbar />
-                    <div className="mx-36">{children}</div>
+                    <div className="mx-4 md:mx-36">
+                        <ApolloWrapper>{children}</ApolloWrapper>
+                    </div>
                     <Footer />
-                </Provider>
-            </body>
+                </body>
+            </Provider>
         </html>
     );
 }

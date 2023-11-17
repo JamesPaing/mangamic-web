@@ -31,7 +31,7 @@ const BookCard: React.FC<CompProps> = ({ book }) => {
 
     return (
         <Link href={`/books/${book.slug}`}>
-            <div className="relative text-xs rounded-[5px] h-[310px] ">
+            <div className="relative text-xs rounded-[5px] h-[310px]">
                 <Image
                     alt={book.mainImage}
                     width={0}
@@ -71,21 +71,21 @@ const BookCard: React.FC<CompProps> = ({ book }) => {
                     ) : (
                         <div className="text-white m-2 w-28 rounded-sm py-[0.2rem] text-center  tracking-wide">
                             <div className="bg-my-gray mb-2 py-[0.3rem] shadow-sm  rounded-sm text-[12px]">
-                                Chapter - 6
+                                Chapter - N/A
                             </div>
                             <div className="bg-my-gray py-[0.3rem] shadow-sm  rounded-sm text-[12px]">
-                                Chapter - 7
+                                Chapter - N/A
                             </div>
                         </div>
                     )}
                 </div>
             </div>
-            <div className="mt-5 flex items-center">
+            <div className="mt-5 flex items-center flex-wrap">
                 {book.genres?.length > 0 ? (
                     book.genres.map((g: any) => (
                         <div
                             key={g._id}
-                            className="bg-secondary-light mr-2 text-[0.65rem] py-1 px-2 rounded-full"
+                            className="bg-secondary-light mt-1  mr-2 text-[0.65rem] py-1 px-2 rounded-full"
                         >
                             {g.name}
                         </div>
@@ -96,7 +96,9 @@ const BookCard: React.FC<CompProps> = ({ book }) => {
                     </div>
                 )}
             </div>
-            <h3 className="text-white mt-3 text-lg">{book.title}</h3>
+            <h3 className="text-white mt-3 text-lg mb-3 md:mb-0">
+                {book.title}
+            </h3>
         </Link>
     );
 };

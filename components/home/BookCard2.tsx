@@ -36,7 +36,8 @@ const BookCard2: React.FC<ComProps> = ({ book }) => {
                 </div>
                 <div className="bg-my-gray flex items-center justify-center shadow-sm text-white m-2 w-16 rounded-sm py-[0.2rem] text-center  tracking-wide">
                     <AiOutlineEye className="text-lg mr-1" />
-                    <span className="">9141</span>
+                    {/* @ts-ignore */}
+                    <span className="">{book.readCount}</span>
                 </div>
             </div>
             <div className="flex justify-start absolute bottom-0 w-full items-center">

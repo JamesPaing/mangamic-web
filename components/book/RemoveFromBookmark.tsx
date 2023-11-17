@@ -4,6 +4,7 @@ import { REMOVER_FROM_BOOKMARK } from '@/apollo/query/user-query';
 import React from 'react';
 import { FiDelete } from '@react-icons/all-files/fi/FiDelete';
 import { useSession } from 'next-auth/react';
+import { getUri } from '@/utils/getApiUrl';
 
 interface CompProps {
     bookId: string;
@@ -12,7 +13,7 @@ interface CompProps {
 const RemoveFromBookmark: React.FC<CompProps> = ({ bookId }) => {
     const { data: session } = useSession();
     const removeFromBookmarkHandler = async (_id: string, bookId: string) => {
-        const resp = await fetch('http://localhost:4000/graphql', {
+        const resp = await fetch(getUri(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -14,14 +14,14 @@ export const navLinks = [
         path: '/categories',
         name: 'Categories',
     },
-    {
-        id: 4,
-        path: '/genres',
-        name: 'Genres',
-    },
-    {
-        id: 5,
-        path: '/about-us',
-        name: 'About Us',
-    },
+    // {
+    //     id: 4,
+    //     path: '/genres',
+    //     name: 'Genres',
+    // },
+    // {
+    //     id: 5,
+    //     path: '/about-us',
+    //     name: 'About Us',
+    // },
 ];

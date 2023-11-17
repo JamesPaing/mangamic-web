@@ -10,15 +10,15 @@ const Footer = () => {
     };
 
     return (
-        <div className="bg-secondary-dark relative pt-[60px] pb-[60px] text-white px-36 gap-20 grid grid-cols-3">
+        <div className="bg-secondary-dark relative pt-[60px] pb-[60px] px-4 grid-cols-1 text-white md:px-36 md:gap-20 grid md:grid-cols-3">
             <div
                 onClick={onScrollToTopHandler}
                 className="cursor-pointer w-12 h-12 absolute left-[50%] top-[-25px] ml-[-25px] bg-primary flex justify-center items-center rounded-full"
             >
                 <AiOutlineArrowUp className="text-xl" />
             </div>
-            <div className="text-xl uppercase ">Hey Comic</div>
-            <div className="flex justify-between text-gray-400">
+            <div className="text-xl uppercase mb-8 md:mb-0">MANGAMIC</div>
+            <div className="flex justify-between text-gray-400 mb-8 md:mb-0">
                 <Link href={'/'}>Home</Link>
                 <Link href={'/books'}>Books</Link>
                 <Link href={'/genres'}>Genres</Link>

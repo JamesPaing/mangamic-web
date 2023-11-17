@@ -4,6 +4,7 @@ import { ADD_TO_BOOKMARK } from '@/apollo/query/user-query';
 import React from 'react';
 import { AiOutlinePlus } from '@react-icons/all-files/ai/AiOutlinePlus';
 import { useSession } from 'next-auth/react';
+import { getUri } from '@/utils/getApiUrl';
 
 interface CompProps {
     bookId: string;
@@ -12,7 +13,7 @@ interface CompProps {
 const AddToBookmark: React.FC<CompProps> = ({ bookId }) => {
     const { data: session } = useSession();
     const addToBookmarkHandler = async (_id: string, bookId: string) => {
-        const resp = await fetch('http://localhost:4000/graphql', {
+        const resp = await fetch(getUri(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

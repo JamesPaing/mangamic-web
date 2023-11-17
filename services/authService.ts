@@ -1,7 +1,8 @@
 import { LOGIN } from '@/apollo/query/auth-query';
+import { getUri } from '@/utils/getApiUrl';
 
 export const authenticate = async (email: string, password: string) => {
-    const resp = await fetch('http://localhost:4000/graphql', {
+    const resp = await fetch(getUri(), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -10,8 +11,6 @@ export const authenticate = async (email: string, password: string) => {
     });
 
     const data = await resp.json();
-
-    console.log(data);
 
     return data.data.login;
 };
