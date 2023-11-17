@@ -81,8 +81,6 @@ const Home = async () => {
     const { data } = await getClient().query({ query: GET_SETTING });
     const { choices } = data.getSetting;
 
-    console.log(trendingBooks);
-
     return (
         <>
             <Slider />
