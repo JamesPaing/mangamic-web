@@ -19,57 +19,72 @@ import { GET_SETTING } from '@/apollo/query/setting-query';
 import { getUri } from '@/utils/getApiUrl';
 
 const getBooks = async () => {
-    const resp = await fetch(getUri(), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: GET_ALL_BOOKS }),
-        cache: 'no-cache',
-        next: {
-            tags: ['books'],
-        },
-    });
+    try {
+        const resp = await fetch(getUri(), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: GET_ALL_BOOKS }),
+            cache: 'no-cache',
+            next: {
+                tags: ['books'],
+            },
+        });
 
-    const { data } = await resp.json();
+        const { data } = await resp.json();
 
-    return data.getAllBooks;
+        return data.getAllBooks;
+    } catch (error) {
+        // @ts-ignore
+        throw new Error(error.message);
+    }
 };
 
 const getNewChapterBooks = async () => {
-    const resp = await fetch(getUri(), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: GET_NEW_CHAPTER_BOOKS }),
-        cache: 'no-cache',
-        next: {
-            tags: ['new-chapter-books'],
-        },
-    });
+    try {
+        const resp = await fetch(getUri(), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: GET_NEW_CHAPTER_BOOKS }),
+            cache: 'no-cache',
+            next: {
+                tags: ['new-chapter-books'],
+            },
+        });
 
-    const { data } = await resp.json();
+        const { data } = await resp.json();
 
-    return data.getNewChapterBooks;
+        return data.getNewChapterBooks;
+    } catch (error) {
+        // @ts-ignore
+        throw new Error(error.message);
+    }
 };
 
 const getTrendingBooks = async () => {
-    const resp = await fetch(getUri(), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: GET_TRENDING_BOOKS }),
-        cache: 'no-cache',
-        next: {
-            tags: ['trending-books'],
-        },
-    });
+    try {
+        const resp = await fetch(getUri(), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: GET_TRENDING_BOOKS }),
+            cache: 'no-cache',
+            next: {
+                tags: ['trending-books'],
+            },
+        });
 
-    const { data } = await resp.json();
+        const { data } = await resp.json();
 
-    return data.getAllBooks;
+        return data.getAllBooks;
+    } catch (error) {
+        // @ts-ignore
+        throw new Error(error.message);
+    }
 };
 
 const Home = async () => {
