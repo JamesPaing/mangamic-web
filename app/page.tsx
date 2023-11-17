@@ -32,11 +32,9 @@ const getBooks = async () => {
             },
         });
 
-        console.log(await resp.json());
-
         const { data } = await resp.json();
 
-        console.log(data.getAllBooks);
+        console.log(data, 'data');
 
         return data.getAllBooks;
     } catch (error) {
