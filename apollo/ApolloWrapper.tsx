@@ -11,17 +11,15 @@ import {
     NextSSRInMemoryCache,
     SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
-
-const uri = 'http://localhost:4000/graphql';
+import { getUri, getWsUrl } from '@/utils/getApiUrl';
 
 const httpLink = createUploadLink({
-    uri,
+    uri: getUri(),
 });
 
 const wsLink = new GraphQLWsLink(
     createClient({
-        // url: 'wss://api.teal-lotus.com/graphql',
-        url: 'ws://localhost:4000/graphql',
+        url: getWsUrl(),
     })
 );
 
@@ -39,9 +37,9 @@ const splitLink = split(
 );
 
 function makeClient() {
-    const httpLink = new HttpLink({
-        uri: 'https://main--time-pav6zq.apollographos.net/graphql',
-    });
+    // const httpLink = new HttpLink({
+    //     uri: 'https://main--time-pav6zq.apollographos.net/graphql',
+    // });
 
     return new NextSSRApolloClient({
         cache: new NextSSRInMemoryCache(),

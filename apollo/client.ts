@@ -9,24 +9,15 @@ import {
     NextSSRApolloClient,
 } from '@apollo/experimental-nextjs-app-support/ssr';
 import { registerApolloClient } from '@apollo/experimental-nextjs-app-support/rsc';
-
-const uri =
-    process.env.NODE_ENV === 'production'
-        ? process.env.PROD_API_URL
-        : process.env.DEV_API_URL;
-
-const wsUrl =
-    process.env.NODE_ENV === 'production'
-        ? process.env.PROD_WS_URL
-        : process.env.DEV_WS_URL;
+import { getUri, getWsUrl } from '@/utils/getApiUrl';
 
 const httpLink = createUploadLink({
-    uri,
+    uri: getUri(),
 });
 
 const wsLink = new GraphQLWsLink(
     createClient({
-        url: wsUrl ?? 'ws://localhost:4000/graphql',
+        url: getWsUrl(),
     })
 );
 
