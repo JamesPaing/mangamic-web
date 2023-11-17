@@ -20,7 +20,7 @@ import { getUri } from '@/utils/getApiUrl';
 
 const getBooks = async () => {
     try {
-        const resp = await fetch(getUri(), {
+        const resp = await fetch('https://api.mangamic.cc/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,6 +31,10 @@ const getBooks = async () => {
                 tags: ['books'],
             },
         });
+
+        const respx = await resp.json();
+
+        throw new Error(JSON.stringify(respx));
 
         const { data } = await resp.json();
 
@@ -43,7 +47,7 @@ const getBooks = async () => {
 
 const getNewChapterBooks = async () => {
     try {
-        const resp = await fetch(getUri(), {
+        const resp = await fetch('https://api.mangamic.cc/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +70,7 @@ const getNewChapterBooks = async () => {
 
 const getTrendingBooks = async () => {
     try {
-        const resp = await fetch(getUri(), {
+        const resp = await fetch('https://api.mangamic.cc/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
