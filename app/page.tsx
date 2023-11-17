@@ -32,9 +32,7 @@ const getBooks = async () => {
             },
         });
 
-        const respx = await resp.json();
-
-        throw new Error(JSON.stringify(respx));
+        console.log(await resp.json());
 
         const { data } = await resp.json();
 
