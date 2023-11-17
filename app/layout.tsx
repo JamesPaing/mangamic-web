@@ -11,7 +11,7 @@ import { ApolloWrapper } from '@/apollo/ApolloWrapper';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Hey Comic',
+    title: 'Mangamic',
     description: 'A Manhwa Website',
 };
 
