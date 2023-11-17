@@ -36,6 +36,8 @@ const getBooks = async () => {
 
         const { data } = await resp.json();
 
+        console.log(data.getAllBooks);
+
         return data.getAllBooks;
     } catch (error) {
         // @ts-ignore
