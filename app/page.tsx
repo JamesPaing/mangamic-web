@@ -1,5 +1,3 @@
-'use client';
-
 import Slider from '@/components/layouts/Slider';
 import React from 'react';
 import { BsArrowRight } from '@react-icons/all-files/bs/BsArrowRight';
