@@ -111,14 +111,14 @@ const Page = () => {
                         } cursor-pointer text-sm px-4 py-[0.4rem] mr-4 mb-4 font-thin flex items-center justify-center rounded-md`}
                     >
                         {genre.name}{' '}
-                        <p className="text-gray-400 ml-1">
+                        {/* <p className="text-gray-400 ml-1">
                             ({genre.bookCount})
-                        </p>
+                        </p> */}
                     </div>
                 ))}
             </div>
-            <div className="flex flex-col md:flex-row text-white items-start mt-10 mb-10">
-                <div className="md:basis-2/3 md:mr-4 basis-full">
+            <div className="flex flex-col md:flex-row text-white mt-10 mb-10">
+                <div className="md:basis-2/3 md:mr-4 basis-full ">
                     <div className="flex justify-between items-center">
                         <div className="border-l-4 pl-4 border-l-primary">
                             <h4 className="font-semibold uppercase text-md md:text-2xl">

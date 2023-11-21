@@ -46,8 +46,12 @@ const Navbar = () => {
         keyword.current = '';
     };
 
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [pathname]);
+
     return (
-        <>
+        <div>
             <nav className="bg-secondary-dark py-5 z-[9999] md:py-0 px-4 md:px-36 text-white flex flex-row justify-between items-center">
                 <div className="md:mr-20  text-xl uppercase">Mangamic</div>
                 <div className="flex-1 md:flex flex-row justify-center items-center hidden">
@@ -175,9 +179,10 @@ const Navbar = () => {
                     type="text"
                 />
             </form>
+
             <div>
                 <ul
-                    className={`bg-secondary-dark text-white ${
+                    className={`bg-secondary-light text-gray-400 ${
                         isMenuOpen ? 'h-28' : 'h-0'
                     } transition-all duration-200 delay-75 overflow-hidden md:hidden flex flex-col items-start justify-center`}
                 >
@@ -185,8 +190,10 @@ const Navbar = () => {
                         <Link
                             // onClick={() => setIsMenuOpen(false)}
                             key={nl.id}
-                            className={` px-4 py-1 hover:bg-primary w-full  transition-colors duration-200 ${
-                                pathname === nl.path ? ' text-primary' : null
+                            className={` px-4 py-1  hover:text-white w-full  transition-all duration-200 ${
+                                pathname === nl.path
+                                    ? ' text-premium-gold tracking-widest'
+                                    : null
                             }`}
                             href={nl.path}
                         >
@@ -195,7 +202,7 @@ const Navbar = () => {
                     ))}
                 </ul>
             </div>
-        </>
+        </div>
     );
 };
 
