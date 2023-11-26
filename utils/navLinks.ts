@@ -7,21 +7,16 @@ export const navLinks = [
     {
         id: 2,
         path: '/books',
-        name: 'All Books',
+        name: 'Books',
     },
     {
         id: 3,
+        path: '/channels',
+        name: 'Channels',
+    },
+    {
+        id: 4,
         path: '/categories',
         name: 'Categories',
     },
-    // {
-    //     id: 4,
-    //     path: '/genres',
-    //     name: 'Genres',
-    // },
-    // {
-    //     id: 5,
-    //     path: '/about-us',
-    //     name: 'About Us',
-    // },
 ];

@@ -201,6 +201,86 @@ export const GET_ALL_BOOKS_BY_CATEGORY = (categoryId: string) => `
     }
 `;
 
+export const GET_ALL_BOOKS_BY_USER = (userId: string) => `
+    query {
+        getAllBooksByUser(queryString: {
+            limit: "9"
+            fields: "_id,title,mainImage,status,readCount, slug -addedBy -categories"
+        }, userId: "${userId}") {
+            results
+            books {
+                id
+                _id
+                title
+                summary
+                slug
+                mainImage
+                addedBy {
+                    _id
+                    name
+                }
+                genres {
+                    _id
+                    name
+                }
+                categories {
+                    _id
+                    name
+                }
+                readCount
+                chapters {
+                    _id
+                    name
+                }
+                status
+                isActive
+                createdAt
+                updatedAt
+            }
+        }
+    }
+`;
+
+export const GET_ALL_BOOKS_BY_USER_SLUG = (userSlug: string) => `
+    query {
+        getAllBooksByUserSlug(queryString: {
+            limit: "9"
+            fields: "_id,title,mainImage,status,readCount, slug -addedBy -categories"
+        }, userSlug: "${userSlug}") {
+            results
+            books {
+                id
+                _id
+                title
+                summary
+                slug
+                mainImage
+                addedBy {
+                    _id
+                    name
+                }
+                genres {
+                    _id
+                    name
+                }
+                categories {
+                    _id
+                    name
+                }
+                readCount
+                chapters {
+                    _id
+                    name
+                }
+                status
+                isActive
+                createdAt
+                updatedAt
+            }
+        }
+    }
+`;
+
 export const GET_ALL_BOOKS_BY_CATEGORY_SLUG = (categorySlug: string) => `
     query {
         getAllBooksByCategorySlug(queryString: {
@@ -251,6 +331,43 @@ export const GET_ALL_BOOKS_BY_CATEGORY_SLUG_NORMAL = gql`
             queryString: $queryString
             categorySlug: $categorySlug
         ) {
+            results
+            pagination
+            books {
+                id
+                _id
+                title
+                summary
+                mainImage
+                addedBy {
+                    _id
+                    name
+                }
+                genres {
+                    _id
+                    name
+                }
+                categories {
+                    _id
+                    name
+                }
+                readCount
+                chapters {
+                    _id
+                    name
+                }
+                slug
+                status
+                isActive
+                createdAt
+                updatedAt
+            }
+        }
+    }
+`;
+export const GET_ALL_BOOKS_BY_USER_SLUG_NORMAL = gql`
+    query GetAllBooksByUserSlug($queryString: QueryString, $userSlug: String) {
+        getAllBooksByUserSlug(queryString: $queryString, userSlug: $userSlug) {
             results
             pagination
             books {

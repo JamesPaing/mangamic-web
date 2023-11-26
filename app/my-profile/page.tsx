@@ -14,6 +14,8 @@ import { GET_ALL_SUBSCRIPTIONS } from '@/apollo/query/subscription-query';
 import EditProfileForm from '@/components/profile/EditProfileForm';
 import PasswordResetForm from '@/components/profile/PasswordResetForm';
 import { getUri } from '@/utils/getApiUrl';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
 const getAllSubscriptionRates = async () => {
     const resp = await fetch(getUri(), {
@@ -70,6 +72,8 @@ const getAllSubscriptions = async () => {
 };
 
 const page = async () => {
+    const session = await getServerSession(authOptions);
+
     const { subscriptionRates } = await getAllSubscriptionRates();
     const { paymentMethods } = await getAllPaymentMethods();
     const { subscriptions } = await getAllSubscriptions();
@@ -105,7 +109,12 @@ const page = async () => {
                     <h3 className="text-[30px] font-oswald font-extrabold">
                         History
                     </h3>
-                    <SubscriptionHistory subscriptions={subscriptions} />
+                    <SubscriptionHistory
+                        subscriptions={subscriptions.filter(
+                            // @ts-ignore
+                            (sub) => sub.user._id == session?.user?._id
+                        )}
+                    />
                 </div>
             </div>
         </>

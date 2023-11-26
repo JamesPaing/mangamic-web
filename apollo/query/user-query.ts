@@ -23,6 +23,34 @@ query {
 }
 `;
 
+export const GET_ALL_MODERATORS = `
+    query {
+        getAllModerators(queryString: {
+            limit: null
+        }) {
+            results
+            users {
+                _id 
+                name
+                slug
+            }
+        }
+    }
+`;
+
+export const GET_ALL_MODERATORS_NORMAL = gql`
+    query GetAllModerators($queryString: QueryString) {
+        getAllModerators(queryString: $queryString) {
+            results
+            users {
+                _id
+                name
+                slug
+            }
+        }
+    }
+`;
+
 export const GET_BOOKMARK = (_id: string) => `
 query {
     getBookmark(_id: "${_id}") {
@@ -43,9 +71,9 @@ query {
         id
         _id
         name
+        slug
         email
         contact
-        subscriptionExpiresAt
         subscriptions {
             _id
         }
@@ -89,6 +117,7 @@ export const UPDATE_USER = gql`
             _id
             name
             contact
+            slug
             email
             role
             visitedBooks {

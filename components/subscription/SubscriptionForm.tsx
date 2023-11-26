@@ -6,7 +6,14 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { CREATE_SUBSCRIPTION } from '@/apollo/query/subscription-query';
 import toast, { Toaster } from 'react-hot-toast';
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
+import {
+    GET_ALL_MODERATORS,
+    GET_ALL_MODERATORS_NORMAL,
+} from '@/apollo/query/user-query';
+import { GET_ALL_SUBSCRIPTION_RATES_BY_USER } from '@/apollo/query/subscription-rate-query';
+import { GET_ALL_PAYMENT_METHODS_BY_USER } from '@/apollo/query/payment-method-query';
 
 const styles = {
     control: (base: any) => ({
@@ -33,14 +40,41 @@ const createSubscriptionSuccess = () =>
 const SubscriptionForm = (props: any) => {
     const { data } = useSession();
     const { rates, paymentMethods } = props;
-
     const [startedDate, setStartedDate] = useState<Date | undefined>(undefined);
     const [endedDate, setEndedDate] = useState<Date | undefined>(undefined);
+    const [subscribedTo, setSubscribedTo] = useState(null);
     const [month, setMonth] = useState(0);
     const [rate, setRate] = useState(null);
     const [method, setMethod] = useState(null);
     const [slip, setSlip] = useState(null);
     const [createSubscription] = useMutation(CREATE_SUBSCRIPTION);
+    const { data: channelData } = useSuspenseQuery(GET_ALL_MODERATORS_NORMAL, {
+        variables: {
+            queryString: {
+                limit: null,
+            },
+        },
+    });
+
+    const { data: paymentMethodsData, refetch: paymentMethodsRefresh } =
+        useSuspenseQuery(GET_ALL_PAYMENT_METHODS_BY_USER, {
+            variables: {
+                queryString: {
+                    limit: null,
+                },
+                userId: null,
+            },
+        });
+
+    const { data: subscriptionRatesData, refetch: subscriptonRatesRefresh } =
+        useSuspenseQuery(GET_ALL_SUBSCRIPTION_RATES_BY_USER, {
+            variables: {
+                queryString: {
+                    limit: null,
+                },
+                userId: null,
+            },
+        });
 
     const resetState = () => {
         setStartedDate(undefined);
@@ -57,6 +91,7 @@ const SubscriptionForm = (props: any) => {
         if (
             !startedDate ||
             !endedDate ||
+            !subscribedTo ||
             !method ||
             !rate ||
             //@ts-ignore
@@ -71,6 +106,7 @@ const SubscriptionForm = (props: any) => {
         const subscription = {
             startedDate,
             endedDate,
+            subscribedTo,
             paymentMethod: method,
             subscriptionRate: rate,
             //@ts-ignore
@@ -124,6 +160,19 @@ const SubscriptionForm = (props: any) => {
         }
     }, [month]);
 
+    useEffect(() => {
+        if (subscribedTo) {
+            paymentMethodsRefresh({
+                userId: subscribedTo,
+            });
+
+            subscriptonRatesRefresh({
+                userId: subscribedTo,
+            });
+        }
+    }, [subscribedTo]);
+
+    console.log(paymentMethodsData, 'payment method data');
     return (
         <form
             // encType="multipart/form-data"
@@ -135,18 +184,40 @@ const SubscriptionForm = (props: any) => {
                 <Select
                     onChange={(val) => {
                         // @ts-ignore
+                        setSubscribedTo(val.value);
+                    }}
+                    placeholder="Select Channel..."
+                    styles={styles}
+                    className="w-[100%] md:w-[88%]"
+                    //@ts-ignore
+                    options={channelData?.getAllModerators?.users?.map(
+                        (r: any, i: number) => ({
+                            label: r.name,
+                            value: r._id,
+                        })
+                    )}
+                />
+            </label>
+            <label className="relative mt-5 text-gray-400 focus-within:text-gray-600 block">
+                <Select
+                    onChange={(val) => {
+                        // @ts-ignore
                         const [month, rate] = val!.value!.split('-');
 
                         setMonth(parseInt(month));
                         setRate(rate);
                     }}
+                    isDisabled={subscribedTo ? false : true}
                     placeholder="Select Plan..."
                     styles={styles}
                     className="w-[100%] md:w-[88%]"
-                    options={rates.map((r: any, i: number) => ({
-                        label: `${r.name} (${r.rate} MMK)`,
-                        value: `${r.numMonths}-${r._id}`,
-                    }))}
+                    // @ts-ignore
+                    options={subscriptionRatesData?.getAllSubscriptionRatesByUser?.subscriptionRates?.map(
+                        (r: any, i: number) => ({
+                            label: `${r.name} (${r.rate} MMK)`,
+                            value: `${r.numMonths}-${r._id}`,
+                        })
+                    )}
                 />
                 {startedDate && endedDate ? (
                     <div className="mt-4 text-white">
@@ -173,11 +244,15 @@ const SubscriptionForm = (props: any) => {
                     }}
                     placeholder="Select Payment Method..."
                     styles={styles}
+                    isDisabled={subscribedTo ? false : true}
                     className="w-[100%] md:w-[88%]"
-                    options={paymentMethods.map((m: any, i: number) => ({
-                        label: m.name,
-                        value: m._id,
-                    }))}
+                    // @ts-ignore
+                    options={paymentMethodsData?.getAllPaymentMethodsByUser?.paymentMethods?.map(
+                        (m: any, i: number) => ({
+                            label: m.name,
+                            value: m._id,
+                        })
+                    )}
                 />
                 {method ? (
                     <div className="mt-4 text-white">

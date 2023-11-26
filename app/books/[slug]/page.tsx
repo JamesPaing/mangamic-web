@@ -54,7 +54,7 @@ const getUser = async (_id: string) => {
 
     const { data } = await resp.json();
 
-    return data.getUser;
+    return data?.getUser || undefined;
 };
 
 const page: NextPage<ComProps> = async ({ params }) => {
