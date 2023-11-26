@@ -126,7 +126,7 @@ const page = async () => {
                             <div className="flex justify-between items-center">
                                 <div className="border-l-4 pl-4 border-l-primary">
                                     <h4 className="font-semibold uppercase text-md md:text-2xl">
-                                        {channel.name}'s books
+                                        {channel.name}&apos;s books
                                     </h4>
                                 </div>
                                 <div className="flex justify-between items-center">
