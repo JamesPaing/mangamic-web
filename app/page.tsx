@@ -2,7 +2,6 @@ import Slider from '@/components/layouts/Slider';
 import React from 'react';
 import { BsArrowRight } from '@react-icons/all-files/bs/BsArrowRight';
 import BookCard from '@/components/home/BookCard';
-import books from '@/utils/dummy-data/books.json';
 import BookCard2 from '@/components/home/BookCard2';
 import BookCard3 from '@/components/home/BookCard3';
 import {
@@ -10,7 +9,6 @@ import {
     GET_NEW_CHAPTER_BOOKS,
     GET_TRENDING_BOOKS,
 } from '@/apollo/query/book-query';
-import Image from 'next/image';
 import Link from 'next/link';
 import { getClient } from '@/apollo/client';
 import { GET_SETTING } from '@/apollo/query/setting-query';
@@ -24,7 +22,6 @@ const getBooks = async () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ query: GET_ALL_BOOKS }),
-            cache: 'no-cache',
             next: {
                 tags: ['books'],
             },
@@ -101,11 +98,11 @@ const Home = async () => {
                 <div className="md:basis-2/3 md:mr-4 basis-full">
                     <div className="flex justify-between items-center">
                         <div className="border-l-4 pl-4 border-l-primary">
-                            <h4 className="font-semibold uppercase md:text-2xl">
+                            <h4 className="font-semibold uppercase md:text-2xl animate__animated animate__backInLeft">
                                 Trending Now
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__backInRight">
                             <p className="uppercase text-xs md:text-sm tracking-wider mr-2">
                                 <Link href={'/books'}>View All</Link>
                             </p>

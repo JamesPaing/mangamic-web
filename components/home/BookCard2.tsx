@@ -26,7 +26,7 @@ const BookCard2: React.FC<ComProps> = ({ book }) => {
                 backgroundRepeat: 'no-repeat',
                 backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), url(${book.mainImage})`,
             }}
-            className=" mb-5 relative book2"
+            className=" mb-5 relative book2 animate__animated animate__fadeInDown"
         >
             <div className="flex justify-between items-center top-0 absolute w-full text-xs">
                 <div

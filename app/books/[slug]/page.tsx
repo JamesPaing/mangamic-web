@@ -130,7 +130,7 @@ const page: NextPage<ComProps> = async ({ params }) => {
                                 <div>
                                     {book?.genres
                                         ?.map((g: any) => g.name)
-                                        .join(', ')}
+                                        .join('| ')}
                                 </div>
                             </li>
                             <li className="flex items-center">

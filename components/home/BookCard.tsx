@@ -30,7 +30,10 @@ const BookCard: React.FC<CompProps> = ({ book }) => {
             : 'bg-green-600';
 
     return (
-        <Link href={`/books/${book.slug}`}>
+        <Link
+            className="animate__animated animate__fadeInUp"
+            href={`/books/${book.slug}`}
+        >
             <div className="relative text-xs rounded-[5px] h-[310px]">
                 <Image
                     alt={book.mainImage}

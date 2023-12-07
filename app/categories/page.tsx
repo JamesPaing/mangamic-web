@@ -22,7 +22,7 @@ const getBooks = async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ query: GET_ALL_BOOKS }),
-        cache: 'no-cache',
+        // cache: 'no-cache',
         next: {
             tags: ['books'],
         },
