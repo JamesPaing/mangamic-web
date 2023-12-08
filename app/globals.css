@@ -29,6 +29,16 @@
     text-shadow: 2px 2px 4px #000000;
 }
 
+.book-card-2 {
+    transition-property: background;
+    transition-duration: .3s;
+    background-size: 100%;
+}
+
+.book-card-2:hover {
+    background-size: 110%;
+}
+
 select {
     -webkit-appearance: none !important;
     -moz-appearance: none !important;

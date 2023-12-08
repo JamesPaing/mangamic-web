@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,20 +22,22 @@ interface CompProps {
 }
 
 const BookCard: React.FC<CompProps> = ({ book }) => {
-    const statusBgColor =
+    const statusBgColor = useMemo(() => {
         book.status === 'new'
             ? 'bg-red-600'
             : book.status === 'ongoing'
             ? 'bg-amber-600'
             : 'bg-green-600';
+    }, []);
 
     return (
         <Link
             className="animate__animated animate__fadeInUp"
             href={`/books/${book.slug}`}
         >
-            <div className="relative text-xs rounded-[5px] h-[310px]">
+            <div className="relative text-xs rounded-[5px] overflow-hidden h-[310px]">
                 <Image
+                    className="hover:scale-110 duration-150"
                     alt={book.mainImage}
                     width={0}
                     height={0}

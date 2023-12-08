@@ -130,23 +130,29 @@ const page: NextPage<ComProps> = async ({ params }) => {
                                 <div>
                                     {book?.genres
                                         ?.map((g: any) => g.name)
-                                        .join('| ')}
+                                        .join(', ')}
                                 </div>
                             </li>
-                            <li className="flex items-center">
+                            <li className="flex items-center mb-2">
                                 <div className="mr-[18px] w-[115px] text-gray-400">
                                     Views:
                                 </div>
                                 <div>{book?.readCount}</div>
                             </li>
+                            <li className="flex items-center">
+                                <div className="mr-[18px] w-[115px] text-gray-400">
+                                    Uploaded By:
+                                </div>
+                                <div>{book?.addedBy?.name}</div>
+                            </li>
                         </ul>
                     </div>
                     <div className="flex flex-col md:flex-row md:items-center">
-                        <div className="px-6 py-3 rounded-sm bg-primary flex justify-center md:justify-start items-center md:mr-4 md:mb-0 mb-4">
+                        <div className="px-6 py-3 cursor-pointer hover:bg-my-gray transition-colors duration-150 rounded-sm bg-primary flex justify-center md:justify-start items-center md:mr-4 md:mb-0 mb-4">
                             <AiFillCaretLeft className="mr-2" />
                             <span>Read First</span>
                         </div>
-                        <div className="px-6 py-3 rounded-sm bg-primary md:justify-start justify-center flex items-center">
+                        <div className="px-6 py-3 cursor-pointer hover:bg-my-gray transition-colors duration-150 rounded-sm bg-primary md:justify-start justify-center flex items-center">
                             <span className="mr-2">Read Last</span>
                             <AiFillCaretRight />
                         </div>
