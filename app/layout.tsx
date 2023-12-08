@@ -13,7 +13,7 @@ import NextTopLoader from 'nextjs-toploader';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Mangamic',
+    title: 'MANGAMIC: An Exclusive Manga Website',
     description: 'A Manhwa Website',
 };
 

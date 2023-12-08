@@ -116,12 +116,12 @@ const Home = async () => {
                     </div>
                     <div className="flex justify-between items-center mt-16">
                         <div className="border-l-4 pl-4 border-l-primary">
-                            <h4 className="font-semibold uppercase text-2xl">
+                            <h4 className="font-semibold uppercase text-2xl animate__animated animate__backInLeft">
                                 Recently Added
                             </h4>
                         </div>
                         <div className="flex justify-between items-center">
-                            <p className="uppercase text-xs md:text-sm tracking-wider mr-2">
+                            <p className="uppercase text-xs md:text-sm tracking-wider mr-2 animate__animated animate__backInRight">
                                 <Link href={'/books'}>View All</Link>
                             </p>
                             <BsArrowRight />
@@ -133,12 +133,12 @@ const Home = async () => {
                         ))}
                     </div>
                     <div className="flex justify-between items-center mt-16">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__backInLeft">
                             <h4 className="font-semibold uppercase text-2xl">
                                 Mangamic&apos;s Choices
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__backInRight">
                             <p className="uppercase text-xs md:text-sm tracking-wider mr-2">
                                 <Link href={'/books'}>View All</Link>
                             </p>
@@ -153,12 +153,12 @@ const Home = async () => {
                 </div>
                 <div className="basis-full md:basis-1/3 md:ml-4 flex flex-col justify-start ">
                     <div className="flex justify-between items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__backInLeft">
                             <h4 className="font-semibold uppercase text-lg">
                                 Top Reads
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__backInRight">
                             <div className="text-xs font-thin text-gray-400">
                                 <span className="mr-2 cursor-pointer">Day</span>
                                 <span className="mr-2 cursor-pointer">
@@ -179,7 +179,7 @@ const Home = async () => {
                         ))}
                     </div>
                     <div className="flex justify-between items-center mt-10">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__backInRight">
                             <h4 className="font-semibold uppercase text-lg">
                                 New Chapter
                             </h4>

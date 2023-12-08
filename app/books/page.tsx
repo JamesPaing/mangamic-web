@@ -90,12 +90,12 @@ const Page = () => {
 
     return (
         <div className="my-10 text-white mb-28">
-            <div className="flex mt-4 justify-between items-center">
+            <div className="flex mt-4 justify-between items-center animate__animated animate__slideInDown">
                 <div className="border-l-4 pl-4 border-l-primary">
                     <h4 className="font-semibold uppercase text-2xl">Genres</h4>
                 </div>
             </div>
-            <div className="flex items-center flex-wrap mt-6">
+            <div className="flex items-center flex-wrap mt-6 animate__animated animate__zoomIn">
                 {[
                     { _id: 'all', name: 'All', bookCount: 'N/A' },
                     /* @ts-ignore */
@@ -111,21 +111,21 @@ const Page = () => {
                         } cursor-pointer text-sm px-4 py-[0.4rem] mr-4 mb-4 font-thin flex items-center justify-center rounded-md`}
                     >
                         {genre.name}{' '}
-                        {/* <p className="text-gray-400 ml-1">
+                        <p className="text-gray-400 ml-1">
                             ({genre.bookCount})
-                        </p> */}
+                        </p>
                     </div>
                 ))}
             </div>
             <div className="flex flex-col md:flex-row text-white mt-10 mb-10">
                 <div className="md:basis-2/3 md:mr-4 basis-full ">
                     <div className="flex justify-between items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                             <h4 className="font-semibold uppercase text-md md:text-2xl">
                                 All Books
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__fadeInLeft">
                             <p className="md:text-sm hidden md:block text-xs tracking-wider mr-4">
                                 Order By:
                             </p>
@@ -186,12 +186,12 @@ const Page = () => {
                 </div>
                 <div className="md:basis-1/3 md:ml-4 basis-full flex flex-col justify-start ">
                     <div className="flex justify-between items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInLeft">
                             <h4 className="font-semibold uppercase md:text-lg">
                                 Top Reads
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__fadeInRight">
                             <div className="text-xs font-thin text-gray-400">
                                 <span className="mr-2">Day</span>
                                 <span className="mr-2">Week</span>

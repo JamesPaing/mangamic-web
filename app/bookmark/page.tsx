@@ -4,10 +4,9 @@ import { GET_BOOKMARK } from '@/apollo/query/user-query';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Image from 'next/image';
-import { AiFillCaretLeft } from '@react-icons/all-files/ai/AiFillCaretLeft';
 import Link from 'next/link';
-import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import { getUri } from '@/utils/getApiUrl';
+import { redirect } from 'next/navigation';
 
 const getBookmark = async (_id: string) => {
     const resp = await fetch(getUri(), {
@@ -29,6 +28,10 @@ const getBookmark = async (_id: string) => {
 
 const BookmarkPage = async () => {
     const session = await getServerSession(authOptions);
+
+    if (!session) {
+        redirect('/login');
+    }
 
     const { books } = await getBookmark(
         // @ts-ignore

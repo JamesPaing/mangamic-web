@@ -41,7 +41,7 @@ const Slider = () => {
 
     return (
         <>
-            <div className="navigation-wrapper mt-10">
+            <div className="navigation-wrapper mt-10 animate__fadeInDown animate__animated z-0">
                 <div ref={sliderRef} className="keen-slider">
                     {sliderData &&
                         // @ts-ignore

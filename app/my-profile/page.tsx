@@ -16,6 +16,7 @@ import PasswordResetForm from '@/components/profile/PasswordResetForm';
 import { getUri } from '@/utils/getApiUrl';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
 const getAllSubscriptionRates = async () => {
     const resp = await fetch(getUri(), {
@@ -73,6 +74,10 @@ const getAllSubscriptions = async () => {
 
 const page = async () => {
     const session = await getServerSession(authOptions);
+
+    if (!session) {
+        redirect('/login');
+    }
 
     const { subscriptionRates } = await getAllSubscriptionRates();
     const { paymentMethods } = await getAllPaymentMethods();

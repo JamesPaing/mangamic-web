@@ -8,6 +8,7 @@ import { AiFillCaretLeft } from '@react-icons/all-files/ai/AiFillCaretLeft';
 import Link from 'next/link';
 import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import { getUri } from '@/utils/getApiUrl';
+import { redirect } from 'next/navigation';
 
 const getHistory = async (_id: string) => {
     const resp = await fetch(getUri(), {
@@ -29,6 +30,10 @@ const getHistory = async (_id: string) => {
 
 const HistoryPage = async () => {
     const session = await getServerSession(authOptions);
+
+    if (!session) {
+        redirect('/login');
+    }
 
     const { chapters, books } = await getHistory(
         // @ts-ignore

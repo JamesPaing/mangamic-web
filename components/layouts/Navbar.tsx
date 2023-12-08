@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineSearch } from '@react-icons/all-files/ai/AiOutlineSearch';
 import { FaUserCog } from '@react-icons/all-files/fa/FaUserCog';
 import { FaUser } from '@react-icons/all-files/fa/FaUser';
 import { AiOutlineLogin } from '@react-icons/all-files/ai/AiOutlineLogin';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
-import { AiOutlineCloseCircle } from '@react-icons/all-files/ai/AiOutlineCloseCircle';
 import { FaCashRegister } from '@react-icons/all-files/fa/FaCashRegister';
 import { AiOutlineHistory } from '@react-icons/all-files/ai/AiOutlineHistory';
 import { BsBookmarkFill } from '@react-icons/all-files/bs/BsBookmarkFill';
@@ -30,7 +29,10 @@ const Navbar = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const keyword = useRef('');
 
-    const linkStyles = `hover:bg-primary p-5 transition-colors duration-200 mr-5`;
+    const linkStyles = useMemo(
+        () => `hover:bg-primary p-5 transition-colors duration-200 mr-5`,
+        []
+    );
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,7 +54,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <nav className="bg-secondary-dark py-5 z-[9999] md:py-0 px-4 md:px-36 text-white flex flex-row justify-between items-center">
+            <nav className="bg-secondary-dark  py-5 z-[9999] md:py-0 px-4 md:px-36 text-white flex flex-row justify-between items-center">
                 <div className="md:mr-20  text-xl uppercase">Mangamic</div>
                 <div className="flex-1 md:flex flex-row justify-center items-center hidden">
                     {navLinks.map((nl) => (
@@ -80,7 +82,12 @@ const Navbar = () => {
                     </div>
                     {isAuth ? (
                         <div className="relative user-menu cursor-pointer">
-                            <FaUserCog size={25} />
+                            <div className="flex items-center">
+                                <span className="mr-2">
+                                    {session.user?.name}
+                                </span>
+                                <FaUserCog size={25} />
+                            </div>
                             <ul className=" text-white pl-4 absolute shadow-sm shadow-gray-800 rounded-sm bg-secondary-dark user-submenu z-20 pt-2  -translate-x-8 w-[150px]">
                                 <li
                                     onClick={() =>
