@@ -1,18 +1,13 @@
 import Image from 'next/image';
 import React from 'react';
-import img1 from '@/public/images/categories/image-1.jpeg';
 import { BsArrowRight } from '@react-icons/all-files/bs/BsArrowRight';
 import {
     GET_ALL_BOOKS,
-    GET_ALL_BOOKS_BY_CATEGORY,
     GET_ALL_BOOKS_BY_USER,
 } from '@/apollo/query/book-query';
-import books from '@/utils/dummy-data/books.json';
 import BookCard from '@/components/home/BookCard';
 import BookCard2 from '@/components/home/BookCard2';
 import BookCard3 from '@/components/home/BookCard3';
-import Pagination from '@/components/layouts/Pagination';
-import { GET_ALL_CATEGORIES } from '@/apollo/query/category-query';
 import Link from 'next/link';
 import { getUri } from '@/utils/getApiUrl';
 import { GET_ALL_MODERATORS } from '@/apollo/query/user-query';
@@ -74,7 +69,7 @@ const getChannels = async () => {
 
 const page = async () => {
     const fetchedBooks = await getBooks();
-    const combinedBooks = [...fetchedBooks.books, ...books];
+    const combinedBooks = [...fetchedBooks.books];
     const { users: channels } = await getChannels();
 
     const mainObj = {};
@@ -83,19 +78,20 @@ const page = async () => {
         const result = await getBooksByChannel(channel._id);
 
         // @ts-ignore
+        // TODO: TS satisfication
         mainObj[channel._id] = result?.books;
     }
 
     return (
         <div className="my-10 text-white mb-28">
             <div className="flex justify-between mt-4 items-center">
-                <div className="border-l-4 pl-4 border-l-primary">
+                <div className="border-l-4 pl-4 border-l-primary animate__animated animate__slideInDown">
                     <h4 className="font-semibold uppercase md:text-2xl">
                         Our Channels
                     </h4>
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 mt-6 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 mt-6 md:gap-4 animate__animated animate__zoomIn">
                 {channels.map((channel: any) => (
                     <Link key={channel._id} href={`channels/${channel.slug}`}>
                         <div
@@ -106,7 +102,7 @@ const page = async () => {
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 backgroundRepeat: 'no-repeat',
-                                backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.0) 0%,rgba(0,0,255,0.1) 50%,rgba(0,0,0,0.0) 100%), url(${channel.image})`,
+                                backgroundImage: `linear-gradient(to right, rgba(0,0,255,0.1) 0%,rgba(0,0,255,0.1) 50%,rgba(0,0,255,0.1) 100%), url(${channel.image})`,
                             }}
                             className=" mb-5 relative book2"
                         >
@@ -124,12 +120,12 @@ const page = async () => {
                     {channels.map((channel: any) => (
                         <>
                             <div className="flex justify-between items-center">
-                                <div className="border-l-4 pl-4 border-l-primary">
+                                <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                                     <h4 className="font-semibold uppercase text-md md:text-2xl">
                                         {channel.name}&apos;s books
                                     </h4>
                                 </div>
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between items-center animate__animated animate__fadeInLeft">
                                     <p className="uppercase text-xs md:text-sm tracking-wider mr-2">
                                         <Link href={`channels/${channel.slug}`}>
                                             View All
@@ -149,12 +145,12 @@ const page = async () => {
                 </div>
                 <div className="md:basis-1/3 md:ml-4 basis-full flex flex-col justify-start ">
                     <div className="flex justify-between items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                             <h4 className="font-semibold uppercase md:text-lg">
                                 Top Reads
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__fadeInLeft">
                             <div className="text-xs font-thin text-gray-400">
                                 <span className="mr-2">Day</span>
                                 <span className="mr-2">Week</span>
@@ -169,7 +165,7 @@ const page = async () => {
                         ))}
                     </div>
                     <div className="flex justify-between items-center mt-10">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                             <h4 className="font-semibold uppercase text-lg">
                                 New Chapter
                             </h4>

@@ -172,12 +172,11 @@ const SubscriptionForm = (props: any) => {
         }
     }, [subscribedTo]);
 
-    console.log(paymentMethodsData, 'payment method data');
     return (
         <form
             // encType="multipart/form-data"
             onSubmit={onSubmitHandler}
-            className="mt-5 "
+            className="mt-5 animate__animated animate__slideInLeft"
         >
             <Toaster />
             <label className="relative text-gray-400 focus-within:text-gray-600 block">

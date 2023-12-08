@@ -85,15 +85,15 @@ const page = async () => {
 
     return (
         <>
-            <div className="flex md:flex-row flex-col text-white my-10 mb-38 pb-10">
+            <div className="flex md:flex-row flex-col text-white my-10 mb-38 pb-10 ">
                 <div className="basis-full md:basis-1/2 md:mb-0 mb-4">
-                    <h3 className="text-[30px] font-oswald font-extrabold">
+                    <h3 className="text-[30px] font-oswald font-extrabold animate__animated animate__zoomIn">
                         Edit Your Profile
                     </h3>
                     <EditProfileForm />
                 </div>
                 <div className="basis-full md:basis-1/2">
-                    <h3 className="text-[30px] font-oswald font-extrabold">
+                    <h3 className="text-[30px] font-oswald font-extrabold animate__animated animate__zoomIn">
                         Reset Your Password
                     </h3>
                     <PasswordResetForm />
@@ -102,7 +102,7 @@ const page = async () => {
             <hr className="my-10 py-8" />
             <div className="flex md:flex-row flex-col text-white my-10 mb-38">
                 <div className="basis-full md:basis-1/2 md:mb-0 mb-4">
-                    <h3 className="text-[30px] font-oswald font-extrabold">
+                    <h3 className="text-[30px] font-oswald font-extrabold animate__animated animate__zoomIn">
                         Create A Subscirpiton
                     </h3>
                     <SubscriptionForm
@@ -111,7 +111,7 @@ const page = async () => {
                     />
                 </div>
                 <div className="basis-full md:basis-1/2">
-                    <h3 className="text-[30px] font-oswald font-extrabold">
+                    <h3 className="text-[30px] font-oswald font-extrabold animate__animated animate__zoomIn">
                         History
                     </h3>
                     <SubscriptionHistory

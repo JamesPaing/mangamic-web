@@ -60,7 +60,10 @@ const EditProfileForm = () => {
     };
 
     return (
-        <form onSubmit={onSubmitHandler} className="mt-5">
+        <form
+            onSubmit={onSubmitHandler}
+            className="mt-5 animate__animated animate__slideInLeft"
+        >
             <Toaster />
             <label className="relative text-gray-400 focus-within:text-gray-600 block">
                 <svg

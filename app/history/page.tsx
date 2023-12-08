@@ -4,9 +4,7 @@ import { GET_HISTORY } from '@/apollo/query/user-query';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Image from 'next/image';
-import { AiFillCaretLeft } from '@react-icons/all-files/ai/AiFillCaretLeft';
 import Link from 'next/link';
-import { AiOutlineEye } from '@react-icons/all-files/ai/AiOutlineEye';
 import { getUri } from '@/utils/getApiUrl';
 import { redirect } from 'next/navigation';
 
@@ -40,23 +38,38 @@ const HistoryPage = async () => {
         session?.user?._id
     );
 
+    if (chapters.length == 0 && books.length == 0) {
+        return (
+            <div className="text-gray-400 text-center">
+                <p className="my-2">No recent books or chapters yet read.</p>
+                <Link href={'/books'} className="text-primary">
+                    Browse books now!
+                </Link>
+            </div>
+        );
+    }
+
     return (
         <div className=" mt-8 text-[15px] mb-32 text-white">
             <div className="flex md:flex-row flex-col mt-16">
                 <div className="basis-full md:basis-4/5">
-                    <div className="flex justify-between mb-5 items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
-                            <h4 className="font-semibold uppercase text-lg md:text-2xl">
-                                Your History
-                            </h4>
+                    {books.length > 0 ? (
+                        <div className="flex justify-between mb-5 items-center">
+                            <div className="border-l-4 pl-4 border-l-primary">
+                                <h4 className="font-semibold uppercase text-lg md:text-2xl">
+                                    Your History
+                                </h4>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <p className="uppercase text-sm tracking-wider mr-2">
+                                    All Books
+                                </p>
+                                <BsArrowRight />
+                            </div>
                         </div>
-                        <div className="flex justify-between items-center">
-                            <p className="uppercase text-sm tracking-wider mr-2">
-                                All Books
-                            </p>
-                            <BsArrowRight />
-                        </div>
-                    </div>
+                    ) : (
+                        <div className="">No recent books yet read.</div>
+                    )}
                     <div className=" grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-12 ">
                         {books.map((book: any) => (
                             <Link key={book._id} href={`/books/${book.slug}`}>
@@ -102,11 +115,13 @@ const HistoryPage = async () => {
                     </div>
                 </div>
                 <div className="md:ml-4 basis-full md:basis-1/5 md:mt-0 mt-8">
-                    <div className="border-l-4 pl-4 border-l-primary">
-                        <h4 className="font-semibold uppercase text-lg mb-5">
-                            Recent Chapters
-                        </h4>
-                    </div>
+                    {chapters.length > 0 ? (
+                        <div className="border-l-4 pl-4 border-l-primary">
+                            <h4 className="font-semibold uppercase text-lg mb-5">
+                                Recent Chapters
+                            </h4>
+                        </div>
+                    ) : null}
                     <div>
                         {chapters
                             .reverse()

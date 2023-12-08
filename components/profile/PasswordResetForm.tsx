@@ -10,7 +10,7 @@ const PasswordResetForm = () => {
     const [repeatNewPassword, setRepeadNewPassword] = useState('');
 
     return (
-        <form className="mt-5">
+        <form className="mt-5 animate__animated animate__slideInRight">
             <label className="relative text-gray-400 focus-within:text-gray-600 block">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

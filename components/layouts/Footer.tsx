@@ -25,8 +25,9 @@ const Footer = () => {
                 <Link href={'/contact'}>Contacts</Link>
             </div>
             <div className="text-gray-600 text-[15px] ">
-                Copyright ©2023 All rights reserved | Developed by{' '}
-                <span className="text-blue-600">James Paing Oo</span>
+                Copyright ©2023 All rights reserved |{' '}
+                <span className="text-white">MANGAMIC</span> | Developed by{' '}
+                <span className="text-blue-600">Paing Oo @James</span>
             </div>
         </div>
     );

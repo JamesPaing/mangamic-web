@@ -85,14 +85,14 @@ const page = async () => {
 
     return (
         <div className="my-10 text-white mb-28">
-            <div className="flex justify-between mt-4 items-center">
+            <div className="flex justify-between mt-4 items-center animate__animated animate__slideInDown">
                 <div className="border-l-4 pl-4 border-l-primary">
                     <h4 className="font-semibold uppercase md:text-2xl">
                         Main Categories
                     </h4>
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 mt-6 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 mt-6 md:gap-4 animate__animated animate__zoomIn">
                 {categories.map((category: any) => (
                     <Link
                         key={category._id}
@@ -124,12 +124,12 @@ const page = async () => {
                     {categories.map((category: any) => (
                         <>
                             <div className="flex justify-between items-center">
-                                <div className="border-l-4 pl-4 border-l-primary">
+                                <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                                     <h4 className="font-semibold uppercase text-md md:text-2xl">
                                         {category.name}
                                     </h4>
                                 </div>
-                                <div className="flex justify-between items-center">
+                                <div className="flex justify-between items-center animate__animated animate__fadeInLeft">
                                     <p className="uppercase text-xs md:text-sm tracking-wider mr-2">
                                         <Link
                                             href={`categories/${category.slug}`}
@@ -151,12 +151,12 @@ const page = async () => {
                 </div>
                 <div className="md:basis-1/3 md:ml-4 basis-full flex flex-col justify-start ">
                     <div className="flex justify-between items-center">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                             <h4 className="font-semibold uppercase md:text-lg">
                                 Top Reads
                             </h4>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center animate__animated animate__fadeInLeft">
                             <div className="text-xs font-thin text-gray-400">
                                 <span className="mr-2">Day</span>
                                 <span className="mr-2">Week</span>
@@ -171,7 +171,7 @@ const page = async () => {
                         ))}
                     </div>
                     <div className="flex justify-between items-center mt-10">
-                        <div className="border-l-4 pl-4 border-l-primary">
+                        <div className="border-l-4 pl-4 border-l-primary animate__animated animate__fadeInRight">
                             <h4 className="font-semibold uppercase text-lg">
                                 New Chapter
                             </h4>

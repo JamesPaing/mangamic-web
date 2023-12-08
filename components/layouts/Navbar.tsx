@@ -83,7 +83,7 @@ const Navbar = () => {
                     {isAuth ? (
                         <div className="relative user-menu cursor-pointer">
                             <div className="flex items-center">
-                                <span className="mr-2">
+                                <span className="mr-2 uppercase hidden md:flex">
                                     {session.user?.name}
                                 </span>
                                 <FaUserCog size={25} />
@@ -189,17 +189,16 @@ const Navbar = () => {
 
             <div>
                 <ul
-                    className={`bg-secondary-light text-gray-400 ${
-                        isMenuOpen ? 'h-28' : 'h-0'
+                    className={`bg-secondary-dark text-gray-400 ${
+                        isMenuOpen ? 'h-36' : 'h-0'
                     } transition-all duration-200 delay-75 overflow-hidden md:hidden flex flex-col items-start justify-center`}
                 >
                     {navLinks.map((nl) => (
                         <Link
-                            // onClick={() => setIsMenuOpen(false)}
                             key={nl.id}
                             className={` px-4 py-1  hover:text-white w-full  transition-all duration-200 ${
                                 pathname === nl.path
-                                    ? ' text-premium-gold tracking-widest'
+                                    ? ' text-white tracking-widest'
                                     : null
                             }`}
                             href={nl.path}

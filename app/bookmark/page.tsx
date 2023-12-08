@@ -38,6 +38,17 @@ const BookmarkPage = async () => {
         session?.user?._id
     );
 
+    if (books.length == 0) {
+        return (
+            <div className="text-gray-400 text-center">
+                <p className="my-2">No recent books yet bookmarked.</p>
+                <Link href={'/books'} className="text-primary">
+                    Browse books now!
+                </Link>
+            </div>
+        );
+    }
+
     return (
         <div className=" mt-8 text-[15px] mb-32 text-white">
             <div className="flex mt-16">
