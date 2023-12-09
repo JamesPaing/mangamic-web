@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 const loading = () => {
     return (
-        <div className="flex mt-20">
+        <div className="flex my-20">
             <div className="basis-3/4 grid grid-cols-1 md:grid-cols-4 gap-x-4 gap-y-2 mr-6">
                 <Skeleton height={300} count={1} />
                 <Skeleton height={300} count={1} />
