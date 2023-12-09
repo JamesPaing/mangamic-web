@@ -9,6 +9,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { ApolloWrapper } from '@/apollo/ApolloWrapper';
 import NextTopLoader from 'nextjs-toploader';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,17 +28,19 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <Provider session={session}>
-                <body
-                    style={{ height: '100vh' }}
-                    className="bg-secondary flex flex-col justify-between"
-                >
-                    <NextTopLoader />
-                    <Navbar />
-                    <div className="mx-4 md:mx-36">
-                        <ApolloWrapper>{children}</ApolloWrapper>
-                    </div>
-                    <Footer />
-                </body>
+                <SkeletonTheme baseColor="#070720" highlightColor="#0b0c2a">
+                    <body
+                        style={{ height: '100vh' }}
+                        className="bg-secondary flex flex-col justify-between"
+                    >
+                        <NextTopLoader />
+                        <Navbar />
+                        <div className="mx-4 md:mx-36">
+                            <ApolloWrapper>{children}</ApolloWrapper>
+                        </div>
+                        <Footer />
+                    </body>
+                </SkeletonTheme>
             </Provider>
         </html>
     );

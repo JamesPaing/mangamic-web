@@ -39,6 +39,16 @@
     background-size: 110%;
 }
 
+.category-card {
+    transition-property: background;
+    transition-duration: .3s;
+    background-size: 130%;
+}
+
+.category-card:hover {
+    background-size: 150%;
+}
+
 select {
     -webkit-appearance: none !important;
     -moz-appearance: none !important;

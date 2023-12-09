@@ -103,12 +103,12 @@ const page = async () => {
                             style={{
                                 height: '190px',
                                 borderRadius: '5px',
-                                backgroundSize: 'cover',
+                                // backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0.1) 50%,rgba(0,0,0,0.0) 100%), url(${category.image})`,
                             }}
-                            className=" mb-5 relative book2"
+                            className="mb-5 relative book2 category-card"
                         >
                             <div className="flex justify-center okay-narsa bottom-0 w-full items-center">
                                 <h3 className="wtf py-[0.2rem] font-oswald tracking-wider font-bold m-2  text-xl">
